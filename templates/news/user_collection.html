@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+    <link rel="stylesheet" type="text/css" href="../../static/news/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/news/css/jquery.pagination.css">
+    <link rel="stylesheet" type="text/css" href="../../static/news/css/main.css">
+    <script type="text/javascript" src="../../static/news/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../../static/news/js/jquery.pagination.min.js"></script>
+</head>
+<body class="inframe_body">
+<div class="my_collect">
+    <h3>我的收藏</h3>
+    <ul class="article_list">
+        {% for news in data.news_list %}
+            <li>
+                <a href="/news/{{ news.id }}">{{ news.title }}</a>
+                <span>{{ news.create_time }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <div id="pagination" class="page"></div>
+    <script>
+        $(function () {
+            $("#pagination").pagination({
+                currentPage: {{ data.page }},
+                totalPage: {{ data.total_page }},
+                callback: function (current) {
+                    //当点击某个页码链接时，会执行这个函数
+                    //参数current===>表示当前点击的链接对应的页码数
+                    //alert(current);
+                    //让当前浏览器窗口打开指定的页面
+                    //location.href='/profile/user_collection?page='+current;
+                    //如果是当前地址，则可以省略地址，直接写?参数
+                    location.href='?page='+current;
+                }
+            });
+        });
+    </script>
+
+</div>
+</body>
+</html>
